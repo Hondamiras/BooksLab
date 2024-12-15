@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md mx-auto mt-8 mb-8">
+        <h2 class="text-2xl font-bold mb-4 text-gray-700">Register</h2>
+        <form method="POST" class="space-y-4">
+            {% csrf_token %}
+            {% for field in form %}
+            <div>
+                <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-gray-600">
+                    {{ field.label }}
+                </label>
+                {{ field }}
+                {% if field.errors %}
+                <p class="text-red-500 text-sm mt-1">{{ field.errors|striptags }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+            <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
+                Register
+            </button>
+        </form>
+    </div>
+{% endblock %}

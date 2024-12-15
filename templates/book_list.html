@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <table class="min-w-full bg-white shadow-md rounded-lg">
+        <thead>
+            <tr class="bg-blue-600 text-white">
+                <th class="px-6 py-3 text-left text-sm font-medium uppercase">#</th>
+                <th class="px-6 py-3 text-left text-sm font-medium uppercase">Author</th>
+                <th class="px-6 py-3 text-left text-sm font-medium uppercase">Title</th>
+                <th class="px-6 py-3 text-left text-sm font-medium uppercase">Year</th>
+                <th class="px-6 py-3 text-center text-sm font-medium uppercase">Download</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if books %}
+                {% for book in books %}
+                <tr class="border-b">
+                    <td class="px-6 py-4 text-sm text-gray-700">{{ forloop.counter }}</td>
+                    <td class="px-6 py-4 text-sm text-gray-700">{{ book.author }}</td>
+                    <td class="px-6 py-4 text-sm text-gray-700">
+                        <a href="{% url 'books:detail' book.id %}" class="text-blue-600 hover:underline">
+                            {{ book.title }}
+                        </a>
+                    </td>                    
+                    <td class="px-6 py-4 text-sm text-gray-700">{{ book.publication_year }}</td>
+                    <td class="px-6 py-4 text-center">
+                        <a href="{% url 'books:download' book.id %}" class="text-blue-600 hover:text-blue-800">
+                            <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path>
+                            </svg>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="5" class="px-6 py-4 text-center text-gray-500">No books available.</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
